@@ -21,6 +21,8 @@ public class Pool : MonoBehaviour
         var actived = instanced.Where(t => !t.gameObject.activeSelf).ToArray();
         return actived[Random.Range(0, actived.Length)];
     }
+
+
 }
 [System.Serializable]
 public class PoolItem

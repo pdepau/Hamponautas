@@ -6,12 +6,15 @@ using UnityEngine;
 public class GeneradorT : MonoBehaviour
 {
     public Pool ItemsPool;
+    public Pool SafeItemsPool;
     // cola como el mercadona
     Queue<Transform> elements;
 
     public float Increment = 0.03f;
-    public float speed;
+    public float Speed=10f;
+    private float speed;
     public int Quantity = 30;
+    public int SafeQuantity = 3;
     public float Displace = 15f;
     public Vector3 direction;
     public Vector3 offset;
@@ -20,14 +23,33 @@ public class GeneradorT : MonoBehaviour
     Vector3 originalPos;
     float currentDisplace;
     int moved = 0;
-    private void OnEnable()
+
+    private void Awake()
     {
-        ItemsPool.Initialize();
         tr = transform;
+        ItemsPool.Initialize();
+        SafeItemsPool.Initialize();
         elements = new Queue<Transform>();
+
+    }
+
+    public void Clean()
+    {
+        while (elements.Any()) 
+        {
+            elements.Dequeue().gameObject.SetActive(false);
+        }
+    } 
+    public void Generate()
+    {
+        tr.position = originalPos;
+        speed = Speed;
+        currentDisplace = 0;
+        moved = 0;
+        
         for (int i = 0; i < Quantity; i++)
         {
-           var elementTransform= ItemsPool.GetRandom();
+           var elementTransform= i< SafeQuantity ? SafeItemsPool.GetRandom() : ItemsPool.GetRandom();
             elementTransform.position = offset - direction * Displace * i;
             elementTransform.gameObject.SetActive(true);
             elements.Enqueue(elementTransform);
@@ -42,14 +64,7 @@ public class GeneradorT : MonoBehaviour
         if (timesToInfinite > moved +2) {
             ToInfinite();
         }
-        if (speed<15) {
-            speed += Time.deltaTime * Increment;
-        }
-
-        if (speed > 15)
-        {
-            speed -= Time.deltaTime * Increment;
-        }
+        speed += Time.deltaTime * Increment;
 
     }
 
