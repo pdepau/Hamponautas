@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 938492069}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -333,13 +333,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938492068}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemsPool: {fileID: 2087737904}
+  Increment: 0.1
   speed: 10
   Quantity: 30
   Displace: 10
@@ -514,8 +515,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Items:
   - Prefab: {fileID: 445302249393651622, guid: 581f5612cebde67418ff66d9d04e0609, type: 3}
+    Quantity: 7
+  - Prefab: {fileID: 445302249393651622, guid: 6233ff66f71f53a49be8567376e74ba1, type: 3}
+    Quantity: 15
+  - Prefab: {fileID: 445302249393651622, guid: 30756b6e18c29f441879028c413506a6, type: 3}
+    Quantity: 15
+  - Prefab: {fileID: 445302249393651622, guid: 5d23d47dad359b04bb4f59c4a456e269, type: 3}
     Quantity: 15
   - Prefab: {fileID: 6610198938956096161, guid: e2513c3f8689143408c7c9f143bea742, type: 3}
+    Quantity: 2
+  - Prefab: {fileID: 6610198938956096161, guid: e6bea6c32bc91434dba5dd8fd1ab7613, type: 3}
+    Quantity: 15
+  - Prefab: {fileID: 6610198938956096161, guid: cb3a4d8f5936a0d42bab420627fa3d39, type: 3}
+    Quantity: 15
+  - Prefab: {fileID: 6610198938956096161, guid: 81f8b035bf91cd043b6b9d5f461fdcea, type: 3}
+    Quantity: 15
+  - Prefab: {fileID: 6610198938956096161, guid: f293bf341f18edf42a03550a9438c245, type: 3}
+    Quantity: 5
+  - Prefab: {fileID: 6610198938956096161, guid: dcf2f39d89572614dbaa08d790fce02a, type: 3}
+    Quantity: 15
+  - Prefab: {fileID: 6610198938956096161, guid: e383afba4f1d96a4790de00d35169218, type: 3}
+    Quantity: 15
+  - Prefab: {fileID: 6610198938956096161, guid: 8a1c07ef27cf77c459580ade5a7e41ec, type: 3}
     Quantity: 15
   instanced: []
 --- !u!4 &2087737905

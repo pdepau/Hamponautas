@@ -9,6 +9,7 @@ public class GeneradorT : MonoBehaviour
     // cola como el mercadona
     Queue<Transform> elements;
 
+    public float Increment = 0.03f;
     public float speed;
     public int Quantity = 30;
     public float Displace = 15f;
@@ -41,6 +42,15 @@ public class GeneradorT : MonoBehaviour
         if (timesToInfinite > moved +2) {
             ToInfinite();
         }
+        if (speed<15) {
+            speed += Time.deltaTime * Increment;
+        }
+
+        if (speed > 15)
+        {
+            speed -= Time.deltaTime * Increment;
+        }
+
     }
 
     public void ToInfinite()
