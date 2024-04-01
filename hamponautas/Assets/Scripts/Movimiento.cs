@@ -6,8 +6,12 @@ public class move : MonoBehaviour
 {
     public float MaxIzq, MaxDer;
     public float Vel;
+    public float jumpHeight = 3f; // Altura del salto
+    public float jumpSpeed = 5f; // Velocidad del salto
     float yOriginal;
     internal Transform tr;
+    Rigidbody rb;
+    bool isJumping = false;
 
     // Define las posiciones predefinidas
     Vector3[] positions;
@@ -17,6 +21,7 @@ public class move : MonoBehaviour
     {
         tr = transform;
         yOriginal = tr.position.y;
+        rb = GetComponent<Rigidbody>();
 
         // Inicializa las posiciones predefinidas
         positions = new Vector3[3];
@@ -36,6 +41,12 @@ public class move : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             MoveRight();
+        }
+
+        // Si se pulsa la tecla de espacio y no estamos saltando, realizar un salto
+        if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
+        {
+            Jump();
         }
 
         // Mover suavemente hacia la posición actual
@@ -58,5 +69,40 @@ public class move : MonoBehaviour
         {
             currentPositionIndex++;
         }
+    }
+
+    void Jump()
+    {
+        // Mueve la nave verticalmente hacia arriba
+        StartCoroutine(MoveVertical(jumpHeight, jumpSpeed));
+    }
+
+    IEnumerator MoveVertical(float targetHeight, float speed)
+    {
+        isJumping = true;
+        float startY = tr.position.y;
+        float elapsedTime = 0f;
+
+        // Subir
+        while (elapsedTime < 1f)
+        {
+            float newY = Mathf.Lerp(startY, targetHeight, elapsedTime);
+            tr.position = new Vector3(tr.position.x, newY, tr.position.z);
+            elapsedTime += Time.deltaTime * speed;
+            yield return null;
+        }
+
+        // Bajar
+        elapsedTime = 1f; // Reiniciamos el tiempo para el movimiento descendente
+        while (elapsedTime > 0f)
+        {
+            float newY = Mathf.Lerp(startY, targetHeight, elapsedTime);
+            tr.position = new Vector3(tr.position.x, newY, tr.position.z);
+            elapsedTime -= Time.deltaTime * speed; // Aquí decrementamos el tiempo
+            yield return null;
+        }
+
+        tr.position = new Vector3(tr.position.x, startY, tr.position.z);
+        isJumping = false;
     }
 }
