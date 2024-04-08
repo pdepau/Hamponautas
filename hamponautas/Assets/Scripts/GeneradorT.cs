@@ -12,7 +12,7 @@ public class GeneradorT : MonoBehaviour
 
     public float Increment = 0.03f;
     public float Speed=10f;
-    private float speed;
+    public float speed;
     public int Quantity = 30;
     public int SafeQuantity = 3;
     public float Displace = 15f;
@@ -65,6 +65,7 @@ public class GeneradorT : MonoBehaviour
             ToInfinite();
         }
         speed += Time.deltaTime * Increment;
+        Debug.Log(speed);
 
     }
 
@@ -77,8 +78,14 @@ public class GeneradorT : MonoBehaviour
         var elementTransform = ItemsPool.GetRandom();
         elementTransform.position = last.position - direction * Displace;
         elementTransform.gameObject.SetActive(true);
+        var items = elementTransform.GetComponentsInChildren<Item>();
+        foreach (var item in items )
+        {
+            item.gameObject.SetActive(true);
+        }
         elements.Enqueue(elementTransform);
 
+        Scores.Instance.current.km++;
         moved++;
     }
 }

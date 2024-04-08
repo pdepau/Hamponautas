@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class move : MonoBehaviour
@@ -17,7 +16,10 @@ public class move : MonoBehaviour
     Vector3[] positions;
     int currentPositionIndex = 1; // Empezar en la posición del medio
 
-    private void Awake()
+    Vector2 startTouchPosition;
+    Vector2 endTouchPosition;
+
+    void Awake()
     {
         tr = transform;
         yOriginal = tr.position.y;
@@ -31,6 +33,66 @@ public class move : MonoBehaviour
     }
 
     void Update()
+    {
+        // Verifica los controles táctiles si estamos en un dispositivo Android
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            CheckAndroidTouchControls();
+        }
+        else // Si no, usa los controles de teclado
+        {
+            CheckKeyboardControls();
+        }
+
+        // Mover suavemente hacia la posición actual
+        tr.position = Vector3.MoveTowards(tr.position, positions[currentPositionIndex], Vel * Time.deltaTime);
+    }
+
+    void CheckAndroidTouchControls()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    startTouchPosition = touch.position;
+                    break;
+
+                case TouchPhase.Ended:
+                    endTouchPosition = touch.position;
+
+                    Vector2 swipeDirection = endTouchPosition - startTouchPosition;
+
+                    if (swipeDirection.magnitude > 50f)
+                    {
+                        if (Mathf.Abs(swipeDirection.x) > Mathf.Abs(swipeDirection.y))
+                        {
+                            if (swipeDirection.x > 0)
+                            {
+                                MoveRight();
+                            }
+                            else
+                            {
+                                MoveLeft();
+                            }
+                        }
+                        else
+                        {
+                            if (swipeDirection.y > 0)
+                            {
+                                Jump();
+                            }
+                        }
+                    }
+
+                    break;
+            }
+        }
+    }
+
+    void CheckKeyboardControls()
     {
         // Si se pulsa A o Flecha Izquierda, mover hacia la izquierda
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
@@ -48,9 +110,6 @@ public class move : MonoBehaviour
         {
             Jump();
         }
-
-        // Mover suavemente hacia la posición actual
-        tr.position = Vector3.MoveTowards(tr.position, positions[currentPositionIndex], Vel * Time.deltaTime);
     }
 
     void MoveLeft()
@@ -96,7 +155,7 @@ public class move : MonoBehaviour
         elapsedTime = 1f; // Reiniciamos el tiempo para el movimiento descendente
         while (elapsedTime > 0f)
         {
-            float newY = Mathf.Lerp(startY, targetHeight, elapsedTime);
+            float newY = Mathf.Lerp(targetHeight, startY, elapsedTime);
             tr.position = new Vector3(tr.position.x, newY, tr.position.z);
             elapsedTime -= Time.deltaTime * speed; // Aquí decrementamos el tiempo
             yield return null;
