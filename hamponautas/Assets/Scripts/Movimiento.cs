@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class move : MonoBehaviour
@@ -15,10 +16,18 @@ public class move : MonoBehaviour
     // Define las posiciones predefinidas
     Vector3[] positions;
     int currentPositionIndex = 1; // Empezar en la posición del medio
+    public List<GameObject> jets = new List<GameObject>();
 
     Vector2 startTouchPosition;
     Vector2 endTouchPosition;
-
+    private void Start()
+    {
+        foreach (GameObject go in jets)
+        {
+            go.SetActive(false);
+        }
+        jets[PlayerPrefs.GetInt("JugadorIndex")].SetActive(true);
+    }
     void Awake()
     {
         tr = transform;
