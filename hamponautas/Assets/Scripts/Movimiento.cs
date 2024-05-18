@@ -155,7 +155,7 @@ public class move : MonoBehaviour
         elapsedTime = 1f; // Reiniciamos el tiempo para el movimiento descendente
         while (elapsedTime > 0f)
         {
-            float newY = Mathf.Lerp(targetHeight, startY, elapsedTime);
+            float newY = Mathf.Lerp(startY, targetHeight, elapsedTime);
             tr.position = new Vector3(tr.position.x, newY, tr.position.z);
             elapsedTime -= Time.deltaTime * speed; // Aquí decrementamos el tiempo
             yield return null;

@@ -85,7 +85,7 @@ public class Score
 
     public override string ToString()
     {
-        return $"Distancia: {(km/10f).ToString("0.00")}\nGemas: {gems.ToString("0")}";
+        return $"Distancia: {(km*10f).ToString("0.00")}\nGemas: {gems.ToString("0")}";
     }
 
 }

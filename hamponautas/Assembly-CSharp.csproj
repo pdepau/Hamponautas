@@ -60,15 +60,19 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.22f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\menuPersonajes\MenuSeleccionPersonaje.cs" />
     <Compile Include="Assets\Scripts\AudioHolder.cs" />
     <Compile Include="Assets\Scripts\Obstacle.cs" />
     <Compile Include="Assets\Scripts\Lose.cs" />
     <Compile Include="Assets\Scripts\Scores.cs" />
     <Compile Include="Assets\Scripts\GeneradorT.cs" />
+    <Compile Include="Assets\Scripts\menuPersonajes\GameManager.cs" />
+    <Compile Include="Assets\Scripts\InitialMenu.cs" />
     <Compile Include="Assets\Scripts\Pool.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\Movimiento.cs" />
     <Compile Include="Assets\Scripts\ScoresGUI.cs" />
+    <Compile Include="Assets\Scripts\menuPersonajes\SelectJet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
